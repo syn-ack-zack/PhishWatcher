@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: PhishWatcher
+Version: 1.0
+Summary: Applies DNSTwist fuzzing logic to Domain to yield a set of domains that may be used for domain squatting. 
+Home-page: UNKNOWN
+Author: Zack Nagaich
+Author-email: zacknagaich@gmail.com
+License: GPL
+Description: UNKNOWN
+Platform: UNKNOWN
