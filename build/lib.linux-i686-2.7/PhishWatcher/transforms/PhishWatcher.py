@@ -3,6 +3,11 @@
 from canari.maltego.utils import debug, progress
 from canari.maltego.entities import Domain
 from canari.framework import configure #, superuser
+'''
+Domain Permutation functionality utilized from DNSTwist
+
+Canari port of https://github.com/brianwarehim/goldphish
+'''
 
 __author__ = 'Zack Nagaich'
 __copyright__ = 'Copyright 2016, Phishwatcher Project'
@@ -158,26 +163,26 @@ def fuzz_domain(domain):
     domains = []
 
     for i in bitsquatting(domain):
-        domains.append(domain)
+        domains.append(i)
     for i in homoglyph(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in repetition(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in transposition(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in replacement(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in omission(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in hyphenation(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in insertion(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in subdomain(domain):
-        domains.append(domain) 
+        domains.append(i)
+        
 
-    return  domains
-
+    return domains
 
 #@superuser
 @configure(
@@ -189,24 +194,6 @@ def fuzz_domain(domain):
     debug=True
 )
 def dotransform(request, response, config):
-    """
-    The dotransform function is our transform's entry point. The request object has the following properties:
-        - value:    a string containing the value of the input entity.
-        - fields:   a dictionary of entity field names and their respective values of the input entity.
-        - params:   any additional command-line arguments to be passed to the transform.
-        - entity:   the information above is serialized into an Entity object. The entity type is determined
-                    by the inputs field in @configure for local transforms. For remote transforms, the entity
-                    type is determined by the information in the body of the request. Local transforms suffer
-                    from one limitation: if more than one entity type is listed in the inputs field of @configure,
-                    the entity type might not be resolvable. Therefore, this should not be referenced in local
-                    transforms if there is more than one input entity type defined in @configure.
-
-    The response object is a container for output entities, UI messages, and exception messages. The config object
-    contains a key-value store of the configuration file.
-    TODO: write your data mining logic below.
-    """
-
-    # Report transform progress
 
     # Send a debugging message to the Maltego UI console
     debug('Fuzing Domains...')
@@ -217,8 +204,7 @@ def dotransform(request, response, config):
    
     progress(50)
 
-    # Setting field values on the entity
-
+    #Create simple domain entity for each generated domain
     for d in domains:
         de = Domain(d)
         response += de
@@ -233,8 +219,6 @@ def dotransform(request, response, config):
 """
 Called if transform interrupted. It's presence is optional; you can remove this function if you don't need to do any
 resource clean up.
-
-TODO: Write your cleanup logic below or delete the onterminate function and remove it from the __all__ variable
 """
 def onterminate():
     debug('Caught signal... exiting.')

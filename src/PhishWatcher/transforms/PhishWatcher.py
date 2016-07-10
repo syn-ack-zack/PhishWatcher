@@ -163,26 +163,26 @@ def fuzz_domain(domain):
     domains = []
 
     for i in bitsquatting(domain):
-        domains.append(domain)
+        domains.append(i)
     for i in homoglyph(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in repetition(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in transposition(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in replacement(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in omission(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in hyphenation(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in insertion(domain):
-        domains.append(domain) 
+        domains.append(i)
     for i in subdomain(domain):
-        domains.append(domain) 
+        domains.append(i)
+        
 
-    return  domains
-
+    return domains
 
 #@superuser
 @configure(
