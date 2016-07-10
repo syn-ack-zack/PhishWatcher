@@ -1,0 +1,46 @@
+machine("nagaich.PhishWatcher", 
+    displayName:"PhishWatcher", 
+    author:"Zack Nagaich",
+    description: "Runs DNSTwist via Maltego Transform and runs NS lookup\
+to build server associations. ") {
+
+    start {
+        //Get any domains listed on graph
+        status("Generating DNSTWist Domains...")
+        type("maltego.Domain",scope:"global")
+        //Run PhishWatcher
+        run("PhishWatcher.v2.PermuteDomain")
+
+        //Generate MS Relation from domains
+        status("Finding associated Name Servers...")
+        type("maltego.Domain",scope:"global")
+        run("paterva.v2.DomainToNSrecord_DNS")
+
+        //trim out leaves of domains that didn't resolve
+        status("Trimming off unresolved leaves")
+        type("maltego.Domain",scope:"global")
+        incoming(1)
+        outgoing(0)
+        delete()
+
+        //obtain the related mail servers
+        status("Finding associated Mail Servers...")
+        type("maltego.Domain",scope:"global")
+        run("paterva.v2.DomainToMXrecord_DNS")
+
+        
+        //resolve all NS and MX servers to their IP
+        status("Getting IP for Name Servers...")
+        type("maltego.NSRecord",scope:"global")
+        run("paterva.v2.DNSNameToIPAddress_DNS")
+        
+        status("Getting IP for Mail Servers...")
+        type("maltego.MXRecord",scope:"global")
+        run("paterva.v2.DNSNameToIPAddress_DNS")
+
+        //All done :)
+        status("Done!")
+        
+
+    }
+}
