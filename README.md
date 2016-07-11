@@ -11,3 +11,12 @@ Create PhishWatcher Maltego Configuration
   `python create-profile PhishWatcher`
   
 Import generated .mtz via Maltego GUI
+
+
+
+
+Source of domain fuzzing logic
+https://github.com/elceef/dnstwist
+
+Original Maltego Transform thisis based on
+https://github.com/brianwarehime/goldphish
