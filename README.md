@@ -18,5 +18,5 @@
 Source of domain fuzzing logic
 https://github.com/elceef/dnstwist
 
-Original Maltego Transform thisis based on
+Original Maltego Transform this is based on
 https://github.com/brianwarehime/goldphish
